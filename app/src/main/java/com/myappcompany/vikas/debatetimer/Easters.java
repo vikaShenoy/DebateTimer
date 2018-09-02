@@ -11,8 +11,8 @@ public class Easters extends Format {
         speakers.add("1st Neg");
         speakers.add("2nd Aff");
         speakers.add("2nd Neg");
-        speakers.add("Aff LR");
         speakers.add("Neg LR");
+        speakers.add("Aff LR");
         this.setSpeakerNames(speakers);
     }
 }
