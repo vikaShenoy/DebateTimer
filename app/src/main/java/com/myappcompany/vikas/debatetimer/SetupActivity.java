@@ -24,19 +24,22 @@ public class SetupActivity extends AppCompatActivity {
             case("BP"):
                 selectedFormat = new BP();
                 break;
-            /*case("Custom"):
-                selectedFormat = new Claytons();
-                break;*/
         }
     }
 
     public void startTiming(View view) {
         String formatTag = view.getTag().toString();
-        findFormat(formatTag);
+        if (formatTag.equals("Custom")) {
+            Intent custom = new Intent(SetupActivity.this, CustomActivity.class);
+            startActivity(custom);
 
-        Intent iTimer = new Intent(SetupActivity.this, TimerActivity.class);
-        iTimer.putExtra("Format", selectedFormat);
-        startActivity(iTimer);
+        } else {
+            findFormat(formatTag);
+            Intent iTimer = new Intent(SetupActivity.this, TimerActivity.class);
+            iTimer.putExtra("Format", selectedFormat);
+            startActivity(iTimer);
+        }
+
     }
 
     @Override

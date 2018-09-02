@@ -86,12 +86,13 @@ public class TimerActivity extends AppCompatActivity {
             name = "";
         }
         Speaker speaker = new Speaker(name, score);
-        Toast.makeText(this, speaker.getName(), Toast.LENGTH_SHORT).show();
         speakerList.add(speaker);
 
+
+        //Start the next screen
         if (currentSpeakerNum == numSpeakers) {
-            //Log.i("POO", "YOTE");
             Intent nextScreen = new Intent(TimerActivity.this, EndScreenActivity.class);
+            nextScreen.putExtra("Format", selectedFormat);
             nextScreen.putParcelableArrayListExtra("key", speakerList);
             startActivity(nextScreen);
         } else {
@@ -199,7 +200,9 @@ public class TimerActivity extends AppCompatActivity {
 
         speakersNames = selectedFormat.getSpeakerNames();
         currentTime = totalTime;
+
         speakerList = new ArrayList<Speaker>();
+
         currentSpeakerNum = 0;
         formatTextView.setText("\n" + formatName);
         updateTimer(totalTime);

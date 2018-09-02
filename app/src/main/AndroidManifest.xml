@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".TimerActivity" />
-        <activity android:name=".EndScreenActivity"></activity>
+        <activity android:name=".EndScreenActivity" />
+        <activity android:name=".CustomActivity"></activity>
     </application>
 
 </manifest>

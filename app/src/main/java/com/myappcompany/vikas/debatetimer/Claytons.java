@@ -13,8 +13,8 @@ public class Claytons extends Format {
         speakers.add("2nd Neg");
         speakers.add("3rd Aff");
         speakers.add("3rd Neg");
-        speakers.add("Aff LR");
         speakers.add("Neg LR");
+        speakers.add("Aff LR");
         this.setSpeakerNames(speakers);
     }
 }
