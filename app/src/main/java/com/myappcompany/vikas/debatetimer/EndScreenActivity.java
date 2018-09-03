@@ -9,6 +9,11 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+/**
+ * @author Vikas Shenoy
+ * The screen shown once all the speakers have finished. Displays stats on the team scores, who won,
+ * and by how much. Resets back to the setup activity once the user clicks the finish button.
+ */
 public class EndScreenActivity extends AppCompatActivity {
     ArrayList<Speaker> speakers;
     Format selectedFormat;
@@ -19,11 +24,19 @@ public class EndScreenActivity extends AppCompatActivity {
     TextView textViewTotalA;
     TextView textViewTotalN;
 
+    /**
+     * Starts the setup activity.
+     * @param view The finish button, clicked to proceed.
+     */
     public void exitScreen(View view) {
         Intent exit = new Intent(EndScreenActivity.this, SetupActivity.class);
         startActivity(exit);
     }
 
+    /**
+     * Calculates each team's total points. Calculates the margin, and displays these totals,
+     * the margin, and the winner, in the relevant textviews.
+     */
     public void calculateTotals() {
         int affTotal = 0;
         int negTotal = 0;
@@ -84,6 +97,10 @@ public class EndScreenActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Checks the speaker list for the person with the highest score. Displays their name in the
+     * MVP textview.
+     */
     public void calculateMVP() {
 
         Speaker bestSpeaker = speakers.get(0);
@@ -94,6 +111,9 @@ public class EndScreenActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Fills in the textviews with all the relevant statistics.
+     */
     public void fillStats() {
         calculateTotals();
         calculateMVP();

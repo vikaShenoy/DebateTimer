@@ -10,11 +10,23 @@ import android.widget.Spinner;
 
 import java.util.ArrayList;
 
+/**
+ * @author Vikas Shenoy
+ * The custom activity is used by the user to set custom parameters for the debate format they wish
+ * to time. Options are for speaking time, number of speakers, and whether there are leaders'
+ * replies. Proceeds to the timer activity once set.
+ */
 public class CustomActivity extends AppCompatActivity {
     Spinner numSpinner;
     Spinner timeSpinner;
     CheckBox checkbox;
 
+    /**
+     * Called when the 'finish' button is clicked. Takes the values from the spinners and checkbox
+     * and creates a Format object with the given parameters. Starts the timer activity and passes
+     * this Format.
+     * @param view The 'finish' button, clicked to proceed.
+     */
     public void createFormat(View view) {
         int numSpeakers = (Integer.parseInt(numSpinner.getSelectedItem().toString())) * 2;
         int speakingTime = Integer.parseInt(timeSpinner.getSelectedItem().toString());
