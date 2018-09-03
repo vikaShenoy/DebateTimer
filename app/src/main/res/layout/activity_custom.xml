@@ -27,7 +27,9 @@
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
-        android:background="@android:drawable/btn_dropdown"
+        android:background="@android:drawable/spinner_dropdown_background"
+        android:backgroundTint="@color/colorPrimary"
+        android:backgroundTintMode="multiply"
         android:spinnerMode="dropdown"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,13 +46,16 @@
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="192dp"
-        android:background="@android:drawable/btn_dropdown"
+        android:background="@android:drawable/spinner_dropdown_background"
+        android:backgroundTint="@color/colorPrimary"
+        android:backgroundTintMode="multiply"
         android:spinnerMode="dropdown"
         app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
         android:id="@+id/textView4"
@@ -60,7 +65,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
-        android:text="Number of speakers:"
+        android:text="Speakers per team: "
         app:layout_constraintBottom_toTopOf="@+id/spinnerSpeakerNum"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -84,8 +89,8 @@
 
     <Button
         android:id="@+id/buttonContinue"
-        android:layout_width="131dp"
-        android:layout_height="62dp"
+        android:layout_width="151dp"
+        android:layout_height="71dp"
         android:layout_marginBottom="46dp"
         android:layout_marginEnd="145dp"
         android:layout_marginStart="147dp"
@@ -94,10 +99,10 @@
         android:text="Continue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintHorizontal_bias="0.538"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerSpeakerNum"
-        app:layout_constraintVertical_bias="0.423" />
+        app:layout_constraintVertical_bias="0.333" />
 
     <CheckBox
         android:id="@+id/checkbox"
