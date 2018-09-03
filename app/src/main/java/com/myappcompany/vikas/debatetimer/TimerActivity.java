@@ -153,8 +153,8 @@ public class TimerActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 endSpeaker(continueButton);
-                //MediaPlayer player = MediaPlayer.create(getApplicationContext(), R.raw.truefire);
-                //player.start();
+                MediaPlayer player = MediaPlayer.create(getApplicationContext(), R.raw.dinosaur_roar);
+                player.start();
             }
         }.start();
     }
@@ -167,6 +167,11 @@ public class TimerActivity extends AppCompatActivity {
 
         if (seconds < 10) {
             secondString = "0" + Integer.toString(seconds);
+        }
+
+        if (time == (totalTime - 60) | time == 60) {
+            MediaPlayer player = MediaPlayer.create(getApplicationContext(), R.raw.japanese_bell);
+            player.start();
         }
 
         currentTime = time;

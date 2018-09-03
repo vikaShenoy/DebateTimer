@@ -48,7 +48,7 @@ public class CustomActivity extends AppCompatActivity {
         timeSpinner = findViewById(R.id.spinnerTime);
         checkbox = findViewById(R.id.checkbox);
 
-        String[] numOptions = new String[]{"2", "3"};
+        String[] numOptions = new String[]{"1", "2", "3"};
         String[] timeOptions = new String[]{"4", "5", "6", "7", "8", "9", "10"};
 
         ArrayAdapter<String> adapterNum = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, numOptions);

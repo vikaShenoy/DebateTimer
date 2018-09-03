@@ -6,33 +6,40 @@
     android:layout_height="match_parent"
     tools:context=".SetupActivity">
 
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
+        android:background="@android:color/black"
+        android:text="\nSelect format"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/gridLayout5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
     <GridLayout
+        android:id="@+id/gridLayout5"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
 
 
+        android:layout_height="0dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="70dp"
         android:columnCount="2"
         android:rowCount="4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="189dp"
-            android:layout_height="80dp"
-            android:layout_columnSpan="2"
-            android:layout_gravity="fill_horizontal"
-            android:text="\nSelect format"
-            android:textAlignment="center"
-            android:textSize="22sp" />
+        app:layout_constraintVertical_bias="1.0">
 
         <Button
             android:id="@+id/buttonClaytons"
