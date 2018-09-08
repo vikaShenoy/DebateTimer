@@ -18,15 +18,18 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.Timer;
 
+/**
+ * @author Vikas Shenoy
+ * The timer activity is used to keep track of time during the speaker's speech.
+ * Sounds are played to signal protected time. At the completion of a speech, prompts are displayed
+ * for the speakers name and score, and then the next speaker begins.
+ */
 public class TimerActivity extends AppCompatActivity {
-    TextView labelTextView;
     TextView timerTextView;
     TextView formatTextView;
     TextView speakerTextView;
-
     EditText nameEditText;
     EditText scoreEditText;
-
     Button pauseButton;
     Button startButton;
     Button endButton;
@@ -41,11 +44,13 @@ public class TimerActivity extends AppCompatActivity {
     ArrayList<String> speakersNames;
     boolean paused = true;
     boolean hasLR;
-
     Format selectedFormat;
     ArrayList<Speaker> speakerList;
 
-
+    /**
+     * Sets the time back to total time, and resets the buttons so that start/stop/next are
+     * displayed. Changes the title bar to indicate which speaker is speaking.
+     */
     public void resetScreen() {
         if (currentSpeakerNum == 0) {
             speakerTextView.setText("\n" + speakersNames.get(1));
@@ -76,6 +81,12 @@ public class TimerActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Called when 'continue' button is clicked. User enters speaker name and score. New speaker
+     * object created with these attributes, and is added to the speaker list. Then either resets
+     * the screen or calls the end screen activity.
+     * @param view The continue button, clicked to proceed.
+     */
     public void saveStats(View view) {
         String name = nameEditText.getText().toString();
         int score = 0;
@@ -101,6 +112,11 @@ public class TimerActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Called when the 'next' button clicked. Hides buttons and brings up the fields to enter
+     * the speakers' name and score.
+     * @param view The 'next' button, clicked to proceed.
+     */
     public void endSpeaker(View view) {
         startButton.setVisibility(View.INVISIBLE);
         pauseButton.setVisibility(View.INVISIBLE);
@@ -112,15 +128,20 @@ public class TimerActivity extends AppCompatActivity {
         scoreEditText.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Called when the user stops the timer. Pauses the timer and sets the pause button to say either
+     * 'reset' or 'stop'.
+     * @param view The 'pause' button, clicked to proceed.
+     */
     public void pauseTimer(View view) {
         endButton.setVisibility(View.VISIBLE);
+        // If the timer is paused, button becomes a reset.
         if (!paused) {
             startButton.setVisibility(View.VISIBLE);
             timer.cancel();
             updateTimer(currentTime);
             paused = true;
             pauseButton.setText("Reset");
-        // If the timer is paused, button becomes a reset.
         } else {
             currentTime = totalTime;
             updateTimer(currentTime);
@@ -129,6 +150,12 @@ public class TimerActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Called when the user starts timing. Hides the start and end buttons. Halves the total time
+     * if there are only two speakers left (leader's replies).
+     * Starts the countdown timer, using the current time if timer pause, or total time if not.
+     * @param view The 'start' button.
+     */
     public void startTimer(View view) {
         startButton.setVisibility(View.INVISIBLE);
         pauseButton.setVisibility(View.VISIBLE);
@@ -138,7 +165,7 @@ public class TimerActivity extends AppCompatActivity {
         int timeLeft = 0;
         if (paused) {
             timeLeft = currentTime;
-        } else if (numSpeakers - currentSpeakerNum <= 1) {
+        } else if (numSpeakers - currentSpeakerNum <= 1 & selectedFormat.getHasLR()) {
             timeLeft = totalTime / 2;
         } else {
             timeLeft = totalTime;
@@ -153,12 +180,16 @@ public class TimerActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 endSpeaker(continueButton);
-                //MediaPlayer player = MediaPlayer.create(getApplicationContext(), R.raw.truefire);
-                //player.start();
+                MediaPlayer player = MediaPlayer.create(getApplicationContext(), R.raw.dinosaur_roar);
+                player.start();
             }
         }.start();
     }
 
+    /**
+     * Called on each timer click. Updates the textual display of time left.
+     * @param time The number of seconds to display on the clock.
+     */
     public void updateTimer(int time) {
         int minutes = time / 60;
         int seconds = time - (minutes * 60);
@@ -167,6 +198,11 @@ public class TimerActivity extends AppCompatActivity {
 
         if (seconds < 10) {
             secondString = "0" + Integer.toString(seconds);
+        }
+
+        if (time == (totalTime - 60) | time == 60) {
+            MediaPlayer player = MediaPlayer.create(getApplicationContext(), R.raw.japanese_bell);
+            player.start();
         }
 
         currentTime = time;

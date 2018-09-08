@@ -9,6 +9,11 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+/**
+ * @author Vikas Shenoy
+ * The screen shown once all the speakers have finished. Displays stats on the team scores, who won,
+ * and by how much. Resets back to the setup activity once the user clicks the finish button.
+ */
 public class EndScreenActivity extends AppCompatActivity {
     ArrayList<Speaker> speakers;
     Format selectedFormat;
@@ -19,11 +24,19 @@ public class EndScreenActivity extends AppCompatActivity {
     TextView textViewTotalA;
     TextView textViewTotalN;
 
+    /**
+     * Starts the setup activity.
+     * @param view The finish button, clicked to proceed.
+     */
     public void exitScreen(View view) {
         Intent exit = new Intent(EndScreenActivity.this, SetupActivity.class);
         startActivity(exit);
     }
 
+    /**
+     * Calculates each team's total points. Calculates the margin, and displays these totals,
+     * the margin, and the winner, in the relevant textviews.
+     */
     public void calculateTotals() {
         int affTotal = 0;
         int negTotal = 0;
@@ -58,8 +71,14 @@ public class EndScreenActivity extends AppCompatActivity {
                     negTotal += speakers.get(i).getScore();
                 }
             }
-            affTotal += speakers.get(selectedFormat.getNumSpeakers() - 1).getScore();
-            negTotal += speakers.get(selectedFormat.getNumSpeakers() - 2).getScore();
+            if (selectedFormat.getHasLR()) {
+                affTotal += speakers.get(selectedFormat.getNumSpeakers() - 1).getScore();
+                negTotal += speakers.get(selectedFormat.getNumSpeakers() - 2).getScore();
+            } else {
+                affTotal += speakers.get(selectedFormat.getNumSpeakers() - 2).getScore();
+                negTotal += speakers.get(selectedFormat.getNumSpeakers() - 1).getScore();
+            }
+
             int margin = 0;
             if (affTotal > negTotal) {
                 textViewWinner.setText("Affirmative");
@@ -78,6 +97,10 @@ public class EndScreenActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Checks the speaker list for the person with the highest score. Displays their name in the
+     * MVP textview.
+     */
     public void calculateMVP() {
 
         Speaker bestSpeaker = speakers.get(0);
@@ -88,59 +111,14 @@ public class EndScreenActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Fills in the textviews with all the relevant statistics.
+     */
     public void fillStats() {
         calculateTotals();
         calculateMVP();
     }
 
-    /*public void fillStatsOld() {
-        //Log.i("POO", "" + speakers.get(0).getScore());
-        int a1 = speakers.get(0).getScore();
-        int a2 = speakers.get(2).getScore();
-        int a3 = speakers.get(4).getScore();
-        int a4 = speakers.get(6).getScore();
-
-        int n1 = speakers.get(1).getScore();
-        int n2 = speakers.get(3).getScore();
-        int n3 = speakers.get(5).getScore();
-        int n4 = speakers.get(7).getScore();
-
-        textViewAff1.setText(Integer.toString(speakers.get(0).getScore()));
-        textViewAff2.setText(Integer.toString(speakers.get(2).getScore()));
-        textViewAff3.setText(Integer.toString(speakers.get(4).getScore()));
-        textViewAffLR.setText(Integer.toString(speakers.get(6).getScore()));
-
-        textViewNeg1.setText(Integer.toString(speakers.get(1).getScore()));
-        textViewNeg2.setText(Integer.toString(speakers.get(3).getScore()));
-        textViewNeg3.setText(Integer.toString(speakers.get(5).getScore()));
-        textViewNegLR.setText(Integer.toString(speakers.get(7).getScore()));
-
-        Speaker bestSpeaker = speakers.get(0);
-        for (Speaker speaker : speakers) {
-            if (speaker.getScore() > bestSpeaker.getScore()) {
-                bestSpeaker = speaker;
-            }
-        }
-        textViewM.setText(bestSpeaker.getName());
-
-        int totalAff = a1 + a2 + a3 + a4;
-        int totalNeg = n1 + n2 + n3 + n4;
-        int margin = 0;
-        String winner = "";
-
-        textViewAffTotal.setText(Integer.toString(totalAff));
-        textViewNegTotal.setText(Integer.toString(totalNeg));
-
-        if (totalAff > totalNeg) {
-            margin = totalAff - totalNeg;
-            winner = "Affirmative";
-        } else {
-            margin = totalNeg - totalAff;
-            winner = "Negative";
-        }
-        textViewMargin.setText("+" + Integer.toString(margin));
-        textViewWin.setText(winner);
-    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
