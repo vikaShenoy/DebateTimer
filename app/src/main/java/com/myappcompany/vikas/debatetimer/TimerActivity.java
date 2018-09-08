@@ -35,15 +35,15 @@ public class TimerActivity extends AppCompatActivity {
     Button endButton;
     Button continueButton;
 
-    CountDownTimer timer;
     int totalTime;
     int currentTime;
     int numSpeakers;
     int currentSpeakerNum;
     String formatName;
     ArrayList<String> speakersNames;
+
+    CountDownTimer timer;
     boolean paused = true;
-    boolean hasLR;
     Format selectedFormat;
     ArrayList<Speaker> speakerList;
 
@@ -72,7 +72,7 @@ public class TimerActivity extends AppCompatActivity {
         scoreEditText.setVisibility(View.INVISIBLE);
         scoreEditText.getText().clear();
 
-        if ((numSpeakers - currentSpeakerNum) <= 1) {
+        if ((numSpeakers - currentSpeakerNum) <= 1 & selectedFormat.getHasLR()) {
             updateTimer(totalTime / 2);
         } else {
             updateTimer(totalTime);
@@ -165,7 +165,7 @@ public class TimerActivity extends AppCompatActivity {
         int timeLeft = 0;
         if (paused) {
             timeLeft = currentTime;
-        } else if (numSpeakers - currentSpeakerNum <= 1 & selectedFormat.getHasLR()) {
+        } else if ((numSpeakers - currentSpeakerNum) <= 1 & selectedFormat.getHasLR()) {
             timeLeft = totalTime / 2;
         } else {
             timeLeft = totalTime;
@@ -226,13 +226,11 @@ public class TimerActivity extends AppCompatActivity {
         nameEditText = (EditText) findViewById(R.id.nameEditText);
         scoreEditText = (EditText) findViewById(R.id.scoreEditText);
 
-        //calculateTime();
         Bundle extras = getIntent().getExtras();
         selectedFormat = extras.getParcelable("Format");
         formatName = selectedFormat.getName();
         totalTime = selectedFormat.getSpeakingTime();
         numSpeakers = selectedFormat.getNumSpeakers();
-        hasLR = selectedFormat.getHasLR();
 
         speakersNames = selectedFormat.getSpeakerNames();
         currentTime = totalTime;
