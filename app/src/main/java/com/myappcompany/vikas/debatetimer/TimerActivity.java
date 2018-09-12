@@ -90,8 +90,14 @@ public class TimerActivity extends AppCompatActivity {
     public void saveStats(View view) {
         String name = nameEditText.getText().toString();
         int score = 0;
+        boolean validEntry = true;
         if (scoreEditText.getText().toString().trim().length() != 0) {
-            score = Integer.parseInt(scoreEditText.getText().toString());
+            try {
+                score = Integer.parseInt(scoreEditText.getText().toString());
+            } catch (Exception e) {
+                Toast.makeText(this, "Enter a number for score.", Toast.LENGTH_LONG).show();
+                validEntry = false;
+            }
         }
         if (name.trim().length() == 0) {
             name = "";
@@ -99,15 +105,16 @@ public class TimerActivity extends AppCompatActivity {
         Speaker speaker = new Speaker(name, score);
         speakerList.add(speaker);
 
-
         //Start the next screen
-        if (currentSpeakerNum == numSpeakers) {
-            Intent nextScreen = new Intent(TimerActivity.this, EndScreenActivity.class);
-            nextScreen.putExtra("Format", selectedFormat);
-            nextScreen.putParcelableArrayListExtra("key", speakerList);
-            startActivity(nextScreen);
-        } else {
-            resetScreen();
+        if (validEntry) {
+            if (currentSpeakerNum == numSpeakers) {
+                Intent nextScreen = new Intent(TimerActivity.this, EndScreenActivity.class);
+                nextScreen.putExtra("Format", selectedFormat);
+                nextScreen.putParcelableArrayListExtra("key", speakerList);
+                startActivity(nextScreen);
+            } else {
+                resetScreen();
+            }
         }
 
     }

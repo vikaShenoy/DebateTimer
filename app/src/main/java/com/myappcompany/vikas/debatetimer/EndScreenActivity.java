@@ -109,6 +109,7 @@ public class EndScreenActivity extends AppCompatActivity {
                 bestSpeaker = speaker;
             }
         }
+        textViewMVP.setText(bestSpeaker.getName());
     }
 
     /**
